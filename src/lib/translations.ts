@@ -269,12 +269,12 @@ export const esTranslations: TranslationSchema = {
   contact_success_title: "¡Mensaje Enviado!",
   contact_success_desc: "Gracias por ponerte en contacto. Te responderé a la brevedad.",
   
-  footer_copy: "© 2026 Pyrex64 — Ingeniero en Informática. Linux, Docker & Desarrollo Web/Móvil.",
+  footer_copy: "© 2026 Sergio Rodriguez (Pyrex64) — Ingeniero en Informática. Linux, Docker & Desarrollo Web/Móvil.",
   
   modal_booking_title: "Agendar Entrevista",
-  modal_booking_subtitle: "Conecta directamente con Pyrex64.",
+  modal_booking_subtitle: "Conecta directamente con Sergio Rodriguez (Pyrex64).",
   modal_booking_candidate: "Candidato:",
-  modal_booking_candidate_val: "Pyrex64 (Ing. Informática)",
+  modal_booking_candidate_val: "Sergio Rodriguez (Pyrex64) - Ing. Informática",
   modal_booking_duration: "Duración:",
   modal_booking_duration_val: "15 - 30 minutos",
   modal_booking_modality: "Modalidad: Google Meet / Zoom",
@@ -288,7 +288,7 @@ export const esTranslations: TranslationSchema = {
   
   lang_disclaimer: "Nota: Poseo nivel de inglés técnico adecuado para comprender requerimientos y documentación.",
   
-  terminal_welcome: "Terminal Interactiva de Pyrex64. Escribe 'help' para comandos.",
+  terminal_welcome: "Terminal Interactiva de Sergio Rodriguez (Pyrex64). Escribe 'help' para comandos.",
   terminal_placeholder: "Escribe 'skills', 'deploy', 'contact', 'hire'…"
 };
 
@@ -416,12 +416,12 @@ export const enTranslations: TranslationSchema = {
   contact_success_title: "Message Sent!",
   contact_success_desc: "Thank you for getting in touch. I will respond to you shortly.",
   
-  footer_copy: "© 2026 Pyrex64 — Computer Engineer. Linux, Docker & Web/Mobile Development.",
+  footer_copy: "© 2026 Sergio Rodriguez (Pyrex64) — Computer Engineer. Linux, Docker & Web/Mobile Development.",
   
   modal_booking_title: "Schedule Interview",
-  modal_booking_subtitle: "Connect directly with Pyrex64.",
+  modal_booking_subtitle: "Connect directly with Sergio Rodriguez (Pyrex64).",
   modal_booking_candidate: "Candidate:",
-  modal_booking_candidate_val: "Pyrex64 (Comp. Engineer)",
+  modal_booking_candidate_val: "Sergio Rodriguez (Pyrex64) - Comp. Engineer",
   modal_booking_duration: "Duration:",
   modal_booking_duration_val: "15 - 30 minutes",
   modal_booking_modality: "Format: Google Meet / Zoom",
@@ -435,6 +435,6 @@ export const enTranslations: TranslationSchema = {
   
   lang_disclaimer: "Note: I possess technical English proficiency sufficient for understanding requirements and docs.",
   
-  terminal_welcome: "Pyrex64 Interactive Terminal. Type 'help' for commands.",
+  terminal_welcome: "Sergio Rodriguez (Pyrex64) Interactive Terminal. Type 'help' for commands.",
   terminal_placeholder: "Type 'skills', 'deploy', 'contact', 'hire'…"
 };

@@ -34,7 +34,7 @@ export default function Navbar({ t, lang, setLang, openBooking }: NavbarProps) {
             </div>
             <div className="flex flex-col">
               <span className="font-semibold tracking-tight text-white text-xs sm:text-sm leading-tight group-hover:text-indigo-300 transition-colors">
-                Pyrex64
+                Sergio Rodriguez (Pyrex64)
               </span>
               <span className="text-[9px] sm:text-[10px] text-zinc-400 font-mono leading-none mt-0.5">
                 {lang === "es" ? "Ingeniero en Informática" : "Computer Engineer"}
