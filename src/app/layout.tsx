@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Creative Developer & Software Engineer",
+  title: "Pyrex64 | Creative Developer & Software Engineer",
   description: "Showcase of my projects, technical skills, and professional experience.",
 };
 
