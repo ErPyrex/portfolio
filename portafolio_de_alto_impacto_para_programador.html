@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyrex64 — Ingeniero en Informática & Full-Stack Engineer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#06080c',
+                            surface: '#0f131c',
+                            card: 'rgba(18, 24, 38, 0.6)',
+                            border: 'rgba(255, 255, 255, 0.08)',
+                            accent: '#6366f1',
+                            cyan: '#06b6d4',
+                            emerald: '#10b981',
+                            orange: '#f97316',
+                            muted: '#94a3b8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Anime.js for smooth SVG morphing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <style>
+        :root {
+            color-scheme: dark;
+        }
+
+        body {
+            background-color: #06080c;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            letter-spacing: -0.011em;
+        }
+
+        .panel-glass {
+            background: rgba(13, 17, 26, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .card-subtle {
+            background: rgba(18, 23, 35, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card-subtle:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            background: rgba(22, 29, 45, 0.7);
+            transform: translateY(-2px);
+        }
+
+        .bg-grid {
+            background-size: 32px 32px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 70%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-orange {
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #facc15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #ambient-morph {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.22;
+        }
+
+        .code-kw { color: #c084fc; }
+        .code-fn { color: #38bdf8; }
+        .code-str { color: #34d399; }
+        .code-cm { color: #64748b; font-style: italic; }
+        .code-num { color: #fbbf24; }
+        .code-cmd { color: #f97316; font-weight: 600; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #06080c; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+    </style>
+</head>
+<body class="bg-grid min-h-screen relative selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <div id="ambient-morph">
+        <svg viewBox="0 0 1000 1000" class="w-full h-full filter blur-[100px]">
+            <path id="morph-path" fill="url(#grad-ambient)" d="M784,611Q704,722,579,788Q454,854,321,799Q188,744,118,622Q48,500,123,382Q198,264,329,195Q460,126,593,184Q726,242,795,371Q864,500,784,611Z" />
+            <defs>
+                <linearGradient id="grad-ambient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#4f46e5" />
+                    <stop offset="50%" stop-color="#ea580c" />
+                    <stop offset="100%" stop-color="#0284c7" />
+                </linearGradient>
+            </defs>
+        </svg>
+    </div>
+
+    <header class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-5xl">
+        <nav class="panel-glass rounded-2xl px-5 py-3 flex items-center justify-between shadow-2xl">
+            <a href="#hero" class="flex items-center gap-3 group">
+                <div class="relative">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-orange-500 to-cyan-500 flex items-center justify-center font-mono text-xs font-bold text-white shadow-md">
+                        P64
+                    </div>
+                    <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-slate-950"></span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-semibold tracking-tight text-white text-sm leading-tight group-hover:text-indigo-300 transition-colors">Pyrex64</span>
+                    <span class="text-[11px] text-slate-400 font-mono leading-none mt-0.5">Ingeniero en Informática</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center gap-6 text-xs font-mono text-slate-300">
+                <a href="#projects" class="hover:text-indigo-300 transition-colors">/proyectos</a>
+                <a href="#stack" class="hover:text-indigo-300 transition-colors">/stack</a>
+                <a href="#contact" class="hover:text-indigo-300 transition-colors">/contacto</a>
+            </div>
+
+            <!-- Quick CTAs -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <a href="https://github.com/ErPyrex" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-medium text-slate-200 border border-white/10 transition-colors">
+                    <i class="fa-brands fa-github text-slate-300"></i>
+                    <span class="font-mono">@ErPyrex</span>
+                </a>
+
+                <a href="#contact" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs px-4 py-2 rounded-lg transition-all shadow-lg shadow-indigo-600/20 flex items-center gap-2">
+                    <span>Contactar</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="hero" class="relative z-10 pt-32 pb-16 px-4 max-w-5xl mx-auto flex flex-col items-start">
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Disponible para Trabajo / Contratación</span>
+            </div>
+            <a href="https://github.com/ErPyrex" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-xs font-mono text-purple-300 hover:bg-purple-500/20 transition-colors">
+                <i class="fa-brands fa-github text-xs"></i>
+                <span>github.com/ErPyrex</span>
+            </a>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-xs font-mono text-orange-400">
+                <i class="fa-brands fa-linux text-xs"></i>
+                <span>Linux Native User & Sysadmin</span>
+            </div>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-[1.15] max-w-4xl">
+            Ingeniero en Informática. Construyo <span class="text-gradient">sistemas web, apps móviles</span> e infraestructura en <span class="text-gradient-orange">Linux & Docker</span>.
+        </h1>
+
+        <p class="text-base sm:text-lg text-slate-300 max-w-3xl mb-8 leading-relaxed">
+            Especializado en <strong class="text-white font-semibold">Next.js, Expo (React Native), Linux, Docker, Bash, PostgreSQL y Supabase</strong>. Integro flujos CI/CD con <strong class="text-purple-300 font-semibold">GitHub Workflows</strong> e impulse el ciclo de desarrollo con herramientas de IA como <strong class="text-indigo-300 font-semibold">Antigravity, AntigravityCLI, OpenCode y Google Stitch</strong>. Despliego en <strong class="text-slate-200">Vercel y Render</strong>.
+        </p>
+
+        <!-- Dynamic View Mode Banner -->
+        <!-- Profile Highlight Banner -->
+        <div id="hero-dynamic-badge" class="w-full p-4 rounded-xl card-subtle mb-8 flex items-start sm:items-center justify-between gap-4 border-l-4 border-l-indigo-500">
+            <div class="flex items-start sm:items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 shrink-0 mt-0.5 sm:mt-0">
+                    <i class="fa-solid fa-terminal"></i>
+                </div>
+                <div>
+                    <span class="text-xs font-mono text-indigo-400 uppercase tracking-wider block">Perfil de Ingeniería & Sysadmin</span>
+                    <p class="text-xs text-slate-300">Linux nativo, scripting en Bash, contenedorización en Docker, consultas SQL (PostgreSQL/SQLite) y desarrollo Web/Móvil con Next.js y Expo.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action CTAs -->
+        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto mb-10">
+            <a href="#contact" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-6 py-3.5 rounded-xl transition-all shadow-xl shadow-indigo-600/25 flex items-center justify-center gap-2.5">
+                <i class="fa-solid fa-paper-plane text-xs"></i>
+                <span>Enviar Propuesta Laboral</span>
+            </a>
+
+            <button onclick="copyContactEmail()" id="btn-copy-email" class="w-full sm:w-auto card-subtle hover:bg-white/10 text-slate-200 font-medium text-sm px-5 py-3.5 rounded-xl transition-all flex items-center justify-center gap-2">
+                <i class="fa-regular fa-copy text-indigo-400"></i>
+                <span id="copy-email-text">Copiar Email Directo</span>
+            </button>
+
+            <a href="#projects" class="w-full sm:w-auto text-slate-400 hover:text-white font-medium text-sm px-4 py-3.5 rounded-xl transition-colors text-center flex items-center justify-center gap-1.5">
+                <span>Ver Proyectos</span>
+                <i class="fa-solid fa-chevron-down text-xs"></i>
+            </a>
+        </div>
+
+        <!-- Quick proof badges -->
+        <div class="w-full pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-slate-400">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-graduation-cap text-indigo-400"></i>
+                <span>Ing. en Informática</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fa-brands fa-linux text-orange-400"></i>
+                <span>Linux OS Primario</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fa-brands fa-docker text-cyan-400"></i>
+                <span>Docker & Bash Scripts</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fa-brands fa-github text-purple-400"></i>
+                <span>GitHub Workflows</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-robot text-emerald-400"></i>
+                <span>AI Tooling (Antigravity, OpenCode)</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="relative z-10 py-8 px-4 max-w-5xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+            <div class="card-subtle p-5 rounded-2xl">
+                <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono mb-1">100%</div>
+                <div class="text-xs font-semibold text-slate-300">Ambientes Contenedorizados</div>
+                <p class="text-[11px] text-slate-400 mt-1 leading-snug">Docker compose & scripts Bash automatizados.</p>
+            </div>
+
+            <div class="card-subtle p-5 rounded-2xl">
+                <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono mb-1">Multi</div>
+                <div class="text-xs font-semibold text-slate-300">Plataforma Móvil & Web</div>
+                <p class="text-[11px] text-slate-400 mt-1 leading-snug">Expo (iOS/Android) y Next.js en producción.</p>
+            </div>
+
+            <div class="card-subtle p-5 rounded-2xl">
+                <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono mb-1">SQL</div>
+                <div class="text-xs font-semibold text-slate-300">PostgreSQL, SQLite & Supabase</div>
+                <p class="text-[11px] text-slate-400 mt-1 leading-snug">Diseño de esquemas y consultas eficientes.</p>
+            </div>
+
+            <div class="card-subtle p-5 rounded-2xl">
+                <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono mb-1">CI/CD</div>
+                <div class="text-xs font-semibold text-slate-300">Render, Vercel & Git</div>
+                <p class="text-[11px] text-slate-400 mt-1 leading-snug">Despliegues automatizados y continuos.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="relative z-10 py-16 px-4 max-w-5xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <div>
+                <span class="text-indigo-400 font-mono text-xs uppercase tracking-wider block mb-1">// Experiencia Práctica y Proyectos Reales</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Sistemas Web, E-Commerce & Apps en Producción</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-400 max-w-md">
+                Proyectos reales desplegados en producción donde aplico desarrollo Full-Stack, optimización de rendimiento e infraestructura cloud.
+            </p>
+        </div>
+
+        <!-- Project 1: NutriCalculadora -->
+        <div class="card-subtle rounded-2xl p-6 sm:p-8 mb-8 border border-white/5">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-white/5">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20 font-bold font-mono">
+                        01
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <span>NutriCalculadora</span>
+                            <a href="https://nutricalculadora.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-xs text-indigo-400 hover:text-indigo-300 font-mono inline-flex items-center gap-1">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                <span>nutricalculadora.vercel.app</span>
+                            </a>
+                        </h3>
+                        <p class="text-xs text-slate-400 font-mono">Next.js • React • Tailwind CSS • Vercel Deployment</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-300 text-xs font-mono border border-emerald-500/20">
+                    Web App / Salubridad & Nutrición
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-6">
+                <div class="space-y-4">
+                    <h4 class="text-xs font-mono text-slate-400 uppercase tracking-wider">01. Enfoque del Proyecto</h4>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Herramienta web interactiva enfocada en el cálculo instantáneo de métricas nutricionales, macros y necesidades calóricas con una interfaz reactiva de alta velocidad.
+                    </p>
+                    <div class="p-3.5 rounded-xl bg-slate-900/60 border border-white/5 text-xs text-slate-300 space-y-1">
+                        <div class="text-emerald-400 font-semibold flex items-center gap-1.5">
+                            <i class="fa-solid fa-bolt text-xs"></i>
+                            <span>Despliegue & Rendimiento:</span>
+                        </div>
+                        <p>Desplegado en Vercel con renderizado instantáneo y respuesta inmediata al cálculo del usuario.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="text-xs font-mono text-slate-400 uppercase tracking-wider">02. Solución Técnica</h4>
+                    <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-emerald-400 mt-1"></i>
+                            <span>Desarrollado sobre arquitectura SSR/CSR ligera en Next.js.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-emerald-400 mt-1"></i>
+                            <span>Lógica matemática optimizada en cliente para cálculos nutricionales en tiempo real.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-emerald-400 mt-1"></i>
+                            <span>Diseño responsivo fluido adaptable a dispositivos móviles y escritorio.</span>
+                        </li>
+                    </ul>
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 font-mono text-[11px]">Next.js</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 font-mono text-[11px]">React</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 font-mono text-[11px]">Vercel</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 font-mono text-[11px]">Tailwind</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-xs font-mono text-slate-400 uppercase tracking-wider">03. Estado en Producción</h4>
+                        <div class="space-y-2 text-xs font-mono text-slate-300 mt-3">
+                            <div class="flex justify-between py-1 border-b border-white/5">
+                                <span>Hosting:</span>
+                                <span class="text-indigo-400 font-bold">Vercel Edge</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b border-white/5">
+                                <span>Tiempo Carga:</span>
+                                <span class="text-emerald-400 font-bold">&lt; 1.0s Fast First Contentful Paint</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b border-white/5">
+                                <span>UX Mobile:</span>
+                                <span class="text-cyan-300 font-bold">100% Touch Optimized</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex items-center justify-between gap-2">
+                        <a href="https://nutricalculadora.vercel.app/" target="_blank" rel="noopener noreferrer" class="bg-emerald-600/90 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-medium transition-all shadow-md flex items-center gap-2">
+                            <span>Visitar NutriCalculadora</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                        <button onclick="openCaseModal('NutriCalculadora', 'https://nutricalculadora.vercel.app/', 'Plataforma web de cálculo nutricional desarrollada con Next.js y desplegada en Vercel.');" class="text-xs font-medium text-slate-400 hover:text-white flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>Detalles</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 2: Dorologi Store -->
+        <div class="card-subtle rounded-2xl p-6 sm:p-8 border border-white/5">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-white/5">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 border border-orange-500/20 font-bold font-mono">
+                        02
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <span>Dorologi Store</span>
+                            <a href="https://www.dorologistore.com/" target="_blank" rel="noopener noreferrer" class="text-xs text-orange-400 hover:text-orange-300 font-mono inline-flex items-center gap-1">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                <span>dorologistore.com</span>
+                            </a>
+                        </h3>
+                        <p class="text-xs text-slate-400 font-mono">E-Commerce Platform • Full-Stack Web • Fast UI/UX</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-orange-500/10 text-orange-300 text-xs font-mono border border-orange-500/20">
+                    E-Commerce Platform
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-6">
+                <div class="space-y-4">
+                    <h4 class="text-xs font-mono text-slate-400 uppercase tracking-wider">01. Enfoque Comercial</h4>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Tienda en línea completa orientada a la exhibición de catálogo, conversión de ventas, navegación fluida de productos y experiencia de compra optimizada.
+                    </p>
+                    <div class="p-3.5 rounded-xl bg-slate-900/60 border border-white/5 text-xs text-slate-300 space-y-1">
+                        <div class="text-orange-400 font-semibold flex items-center gap-1.5">
+                            <i class="fa-solid fa-bag-shopping text-xs"></i>
+                            <span>Resultado E-Commerce:</span>
+                        </div>
+                        <p>Diseño web limpio, rápida carga de imágenes de catálogo y estructuración optimizada para comercio.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="text-xs font-mono text-slate-400 uppercase tracking-wider">02. Solución Técnica</h4>
+                    <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-orange-400 mt-1"></i>
+                            <span>Arquitectura web orientada a catálogo interactivo y velocidad de conversión.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-orange-400 mt-1"></i>
+                            <span>Diseño e interfaz de usuario estilizada con adaptación mobile-first.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-angle-right text-orange-400 mt-1"></i>
+                            <span>Integración de dominio personalizado y configuración de producción.</span>
+                        </li>
+                    </ul>
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 font-mono text-[11px]">E-Commerce</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 font-mono text-[11px]">JavaScript</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 font-mono text-[11px]">HTML5 / CSS3</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 font-mono text-[11px]">Custom Domain</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-xs font-mono text-slate-400 uppercase tracking-wider">03. Métricas en Producción</h4>
+                        <div class="space-y-2 text-xs font-mono text-slate-300 mt-3">
+                            <div class="flex justify-between py-1 border-b border-white/5">
+                                <span>Dominio Vivo:</span>
+                                <span class="text-orange-400 font-bold">dorologistore.com</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b border-white/5">
+                                <span>Optimización:</span>
+                                <span class="text-emerald-400 font-bold">SEO & Mobile First</span>
+                            </div>
+                            <div class="flex justify-between py-1 border-b border-white/5">
+                                <span>Estado:</span>
+                                <span class="text-indigo-300 font-bold">En Línea (100% Uptime)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex items-center justify-between gap-2">
+                        <a href="https://www.dorologistore.com/" target="_blank" rel="noopener noreferrer" class="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-xl text-xs font-medium transition-all shadow-md flex items-center gap-2">
+                            <span>Visitar Dorologi Store</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                        <button onclick="openCaseModal('Dorologi Store', 'https://www.dorologistore.com/', 'Plataforma e-commerce completa para Dorologi Store con diseño adaptativo y catálogo interactivo.');" class="text-xs font-medium text-slate-400 hover:text-white flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>Detalles</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Open Source & Systems Engineering GitHub Repositories Section -->
+        <div class="mt-16 pt-12 border-t border-white/5">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                <div>
+                    <span class="text-purple-400 font-mono text-xs uppercase tracking-wider block mb-1">// Código Abierto & Automatización en GitHub</span>
+                    <h2 class="text-xl sm:text-3xl font-extrabold text-white flex items-center gap-2">
+                        <span>Herramientas de Consola & Scripts</span>
+                        <a href="https://github.com/ErPyrex" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-purple-400 hover:text-purple-300">@ErPyrex</a>
+                    </h2>
+                </div>
+                <a href="https://github.com/ErPyrex?tab=repositories" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-slate-400 hover:text-white flex items-center gap-1.5">
+                    <span>Ver todos en GitHub</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                <!-- Repo 1: rust-ffmpeg-cli -->
+                <a href="https://github.com/ErPyrex/rust-ffmpeg-cli" target="_blank" rel="noopener noreferrer" class="card-subtle p-5 rounded-2xl flex flex-col justify-between group hover:border-purple-500/50">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-2 rounded-xl bg-orange-500/10 text-orange-400 border border-orange-500/20 text-xs font-mono font-bold">
+                                <i class="fa-solid fa-gear mr-1"></i> Rust Systems
+                            </span>
+                            <i class="fa-brands fa-github text-slate-400 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h4 class="font-mono font-bold text-white text-base group-hover:text-purple-300 transition-colors">rust-ffmpeg-cli</h4>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            Herramienta de línea de comandos en Rust para la manipulación y procesamiento avanzado de archivos de audio y video mediante utilidades FFmpeg.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 mt-4 border-t border-white/5 text-[11px] font-mono text-slate-400">
+                        <span class="flex items-center gap-1 text-orange-400"><span class="w-2 h-2 rounded-full bg-orange-500"></span> Rust</span>
+                        <span class="group-hover:translate-x-1 transition-transform">ver repo &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Repo 2: script-dev-setup-installer -->
+                <a href="https://github.com/ErPyrex/script-dev-setup-installer" target="_blank" rel="noopener noreferrer" class="card-subtle p-5 rounded-2xl flex flex-col justify-between group hover:border-orange-500/50">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-bold">
+                                <i class="fa-solid fa-terminal mr-1"></i> Bash Automation
+                            </span>
+                            <i class="fa-brands fa-github text-slate-400 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h4 class="font-mono font-bold text-white text-base group-hover:text-orange-300 transition-colors">script-dev-setup-installer</h4>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            Script automatizado en Bash para la instalación limpia y configuración rápida de entornos de desarrollo en distribuciones Linux.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 mt-4 border-t border-white/5 text-[11px] font-mono text-slate-400">
+                        <span class="flex items-center gap-1 text-emerald-400"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Shell / Bash</span>
+                        <span class="group-hover:translate-x-1 transition-transform">ver repo &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Repo 3: mc-server-creator -->
+                <a href="https://github.com/ErPyrex/mc-server-creator" target="_blank" rel="noopener noreferrer" class="card-subtle p-5 rounded-2xl flex flex-col justify-between group hover:border-cyan-500/50">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono font-bold">
+                                <i class="fa-solid fa-server mr-1"></i> Server Setup
+                            </span>
+                            <i class="fa-brands fa-github text-slate-400 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h4 class="font-mono font-bold text-white text-base group-hover:text-cyan-300 transition-colors">mc-server-creator</h4>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            Utilidad de automatización para la creación, configuración y aprovisionamiento simplificado de servidores dedicados de Minecraft.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 mt-4 border-t border-white/5 text-[11px] font-mono text-slate-400">
+                        <span class="flex items-center gap-1 text-cyan-400"><span class="w-2 h-2 rounded-full bg-cyan-500"></span> Scripting / Linux</span>
+                        <span class="group-hover:translate-x-1 transition-transform">ver repo &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Repo 4: mcp-packet-tracer-bundle -->
+                <a href="https://github.com/ErPyrex/mcp-packet-tracer-bundle" target="_blank" rel="noopener noreferrer" class="card-subtle p-5 rounded-2xl flex flex-col justify-between group hover:border-indigo-500/50">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-mono font-bold">
+                                <i class="fa-solid fa-network-wired mr-1"></i> Networking & MCP
+                            </span>
+                            <i class="fa-brands fa-github text-slate-400 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h4 class="font-mono font-bold text-white text-base group-hover:text-indigo-300 transition-colors">mcp-packet-tracer-bundle</h4>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            Paquete de integración y recursos MCP (Model Context Protocol) para simulaciones y prácticas de redes en Packet Tracer.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 mt-4 border-t border-white/5 text-[11px] font-mono text-slate-400">
+                        <span class="flex items-center gap-1 text-indigo-400"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Networks / Protocol</span>
+                        <span class="group-hover:translate-x-1 transition-transform">ver repo &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Repo 5: mlbb-video-resources -->
+                <a href="https://github.com/ErPyrex/mlbb-video-resources" target="_blank" rel="noopener noreferrer" class="card-subtle p-5 rounded-2xl flex flex-col justify-between group hover:border-pink-500/50">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="p-2 rounded-xl bg-pink-500/10 text-pink-400 border border-pink-500/20 text-xs font-mono font-bold">
+                                <i class="fa-solid fa-film mr-1"></i> Media Assets
+                            </span>
+                            <i class="fa-brands fa-github text-slate-400 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h4 class="font-mono font-bold text-white text-base group-hover:text-pink-300 transition-colors">mlbb-video-resources</h4>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                            Repositorio y conjunto de recursos optimizados para la gestión de assets multimedia y clips de video.
+                        </p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 mt-4 border-t border-white/5 text-[11px] font-mono text-slate-400">
+                        <span class="flex items-center gap-1 text-pink-400"><span class="w-2 h-2 rounded-full bg-pink-500"></span> Media / Assets</span>
+                        <span class="group-hover:translate-x-1 transition-transform">ver repo &rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Card GitHub Profile CTA -->
+                <a href="https://github.com/ErPyrex" target="_blank" rel="noopener noreferrer" class="card-subtle p-5 rounded-2xl flex flex-col justify-center items-center text-center group border border-dashed border-purple-500/30 hover:border-purple-500">
+                    <div class="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-github text-2xl"></i>
+                    </div>
+                    <h4 class="font-mono font-bold text-white text-sm">@ErPyrex en GitHub</h4>
+                    <p class="text-xs text-slate-400 mt-1">Explora todos mis repositorios, configuraciones dotfiles y actividad.</p>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="stack" class="relative z-10 py-16 px-4 max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+            <span class="text-indigo-400 font-mono text-xs uppercase tracking-wider block mb-1">// Stack Tecnológico Principal</span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Dominio Técnico & Herramientas</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+            <!-- Card 1: DevOps & Sysadmin -->
+            <div class="card-subtle p-6 rounded-2xl border border-white/5">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 border border-orange-500/20">
+                        <i class="fa-brands fa-linux text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-base">Linux & Servidores</h3>
+                        <p class="text-xs text-slate-400">Sistema Operativo & DevOps</p>
+                    </div>
+                </div>
+
+                <ul class="space-y-3.5 text-xs text-slate-300">
+                    <li class="flex items-center justify-between font-mono">
+                        <span>Linux (Distros)</span>
+                        <span class="text-orange-400 font-bold">OS Base</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>Docker & Compose</span>
+                        <span class="text-cyan-400 font-bold">Contenedores</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>Bash Scripting</span>
+                        <span class="text-emerald-400 font-bold">Automatización</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>Render & Vercel</span>
+                        <span class="text-indigo-400 font-bold">Despliegue</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 2: Web & Backend -->
+            <div class="card-subtle p-6 rounded-2xl border border-white/5">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 border border-indigo-500/20">
+                        <i class="fa-solid fa-code text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-base">Desarrollo Web</h3>
+                        <p class="text-xs text-slate-400">Sistemas & Landing Pages</p>
+                    </div>
+                </div>
+
+                <ul class="space-y-3.5 text-xs text-slate-300">
+                    <li class="flex items-center justify-between font-mono">
+                        <span>Next.js / React</span>
+                        <span class="text-indigo-400 font-bold">Frontend Framework</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>HTML5, CSS3, JS</span>
+                        <span class="text-indigo-400 font-bold">Fundamentos Web</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>Tailwind CSS</span>
+                        <span class="text-indigo-400 font-bold">Estilos & UI</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>REST APIs & Node</span>
+                        <span class="text-indigo-400 font-bold">Integración</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 3: Mobile & Databases -->
+            <div class="card-subtle p-6 rounded-2xl border border-white/5">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20">
+                        <i class="fa-solid fa-database text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-base">Móvil & Datos</h3>
+                        <p class="text-xs text-slate-400">Apps & Almacenamiento</p>
+                    </div>
+                </div>
+
+                <ul class="space-y-3.5 text-xs text-slate-300">
+                    <li class="flex items-center justify-between font-mono">
+                        <span>Expo (React Native)</span>
+                        <span class="text-emerald-400 font-bold">Apps Móviles</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>PostgreSQL</span>
+                        <span class="text-emerald-400 font-bold">Base de Datos SQL</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>Supabase (BaaS)</span>
+                        <span class="text-emerald-400 font-bold">Auth & DB</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>SQLite</span>
+                        <span class="text-emerald-400 font-bold">Base de Datos Local</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 4: AI Tools & CI/CD Workflows -->
+            <div class="card-subtle p-6 rounded-2xl border border-white/5">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400 border border-purple-500/20">
+                        <i class="fa-solid fa-robot text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-base">Herramientas IA & CI/CD</h3>
+                        <p class="text-xs text-slate-400">Automatización & Dev AI</p>
+                    </div>
+                </div>
+
+                <ul class="space-y-3.5 text-xs text-slate-300">
+                    <li class="flex items-center justify-between font-mono">
+                        <span>GitHub Workflows</span>
+                        <span class="text-purple-400 font-bold">Pipelines CI/CD</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>Antigravity & CLI</span>
+                        <span class="text-purple-400 font-bold">Asistente AI</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>OpenCode</span>
+                        <span class="text-purple-400 font-bold">Herramienta Dev</span>
+                    </li>
+                    <li class="flex items-center justify-between font-mono">
+                        <span>Google Stitch</span>
+                        <span class="text-purple-400 font-bold">Integración</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="relative z-10 py-12 px-4 max-w-4xl mx-auto">
+        <div class="panel-glass rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+            <div class="bg-slate-900/90 px-4 py-2.5 flex items-center justify-between border-b border-white/5">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                    <span class="text-xs font-mono text-slate-400 ml-2">pyrex64@linux:~</span>
+                </div>
+                <span class="text-[10px] font-mono text-slate-500">bash shell</span>
+            </div>
+
+            <div class="p-5 font-mono text-xs sm:text-sm bg-slate-950/80 min-h-[200px] flex flex-col justify-between">
+                <div id="cli-output" class="space-y-1.5 text-slate-300">
+                    <p class="text-slate-500">// Terminal Interactiva de Pyrex64. Escribe <span class="text-orange-400">'help'</span> para comandos.</p>
+                    <p><span class="text-emerald-400">pyrex64@linux:~$</span> whoami</p>
+                    <p class="text-indigo-300 pl-4">Ingeniero en Informática | Full-Stack & Linux Sysadmin Developer</p>
+                </div>
+
+                <div class="flex items-center gap-2 mt-4 pt-2 border-t border-white/5">
+                    <span class="text-emerald-400 font-bold">pyrex64@linux:~$</span>
+                    <input type="text" id="cli-input" placeholder="Escribe 'skills', 'deploy', 'contact', 'hire'..." class="bg-transparent border-none outline-none text-white w-full font-mono text-xs focus:ring-0">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="relative z-10 py-20 px-4 max-w-4xl mx-auto">
+        <div class="panel-glass rounded-3xl p-8 sm:p-12 border border-indigo-500/20 text-center relative overflow-hidden">
+            <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-mono uppercase tracking-wider border border-indigo-500/20">
+                Contacto Directo
+            </span>
+
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 mb-4">
+                ¿Buscas un Ingeniero de Software para tu equipo?
+            </h2>
+
+            <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto mb-8 leading-relaxed">
+                Estoy listo para sumarme a proyectos o vacantes de desarrollo. Envíame un mensaje directo o copia mi correo de contacto.
+            </p>
+
+            <div class="max-w-md mx-auto mb-8">
+                <button onclick="copyContactEmail()" class="w-full card-subtle hover:bg-white/10 text-white font-medium p-3.5 rounded-xl border border-white/10 transition-all flex items-center justify-center gap-2 text-xs sm:text-sm">
+                    <i class="fa-regular fa-envelope text-indigo-400"></i>
+                    <span>Copiar Email Directo</span>
+                </button>
+            </div>
+
+            <form id="direct-form" onsubmit="submitForm(event)" class="max-w-md mx-auto space-y-3 text-left">
+                <div>
+                    <input type="text" required placeholder="Tu Nombre o Empresa" class="w-full bg-slate-950/80 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors">
+                </div>
+                <div>
+                    <input type="email" required placeholder="tu.email@empresa.com" class="w-full bg-slate-950/80 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors">
+                </div>
+                <div>
+                    <textarea rows="3" required placeholder="Detalles sobre la vacante, proyecto o stack que requieres..." class="w-full bg-slate-950/80 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-600/20">
+                    Enviar Mensaje Directo
+                </button>
+            </form>
+
+            <div id="form-toast" class="hidden mt-4 text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-xl">
+                ✓ ¡Mensaje enviado! Me pondré en contacto contigo a la brevedad.
+            </div>
+        </div>
+    </section>
+
+    <footer class="relative z-10 border-t border-white/5 py-8 text-center text-xs text-slate-500 font-mono">
+        <p>© 2026 Pyrex64 — Ingeniero en Informática. Linux, Docker & Full-Stack Development.</p>
+    </footer>
+
+    <div id="modal-booking" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+        <div class="panel-glass max-w-md w-full rounded-2xl p-6 border border-indigo-500/30 relative">
+            <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mx-auto mb-3">
+                    <i class="fa-regular fa-calendar-days text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Agendar Entrevista</h3>
+                <p class="text-xs text-slate-400 mt-1">Conecta directamente con Pyrex64.</p>
+            </div>
+
+            <div class="space-y-3 font-mono text-xs">
+                <div class="p-3 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-between">
+                    <span>Candidato:</span>
+                    <span class="text-indigo-300">Pyrex64 (Ing. Informática)</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-between">
+                    <span>Duración:</span>
+                    <span class="text-indigo-300">15 - 30 minutos</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900 border border-white/5 flex items-center justify-between">
+                    <span>Modalidad:</span>
+                    <span class="text-indigo-300">Google Meet / Zoom</span>
+                </div>
+            </div>
+
+            <a href="mailto:pyrex64.dev@gmail.com?subject=Solicitud%20de%20Entrevista%20-%20Pyrex64" class="mt-6 w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition-all text-xs flex items-center justify-center gap-2">
+                <span>Confirmar Vía Correo Directo</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Case Study Details Modal -->
+    <div id="modal-case" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+        <div class="panel-glass max-w-lg w-full rounded-2xl p-6 border border-white/10 relative">
+            <button onclick="closeCaseModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+
+            <h3 id="modal-case-title" class="text-xl font-bold text-white mb-2">Título</h3>
+            <p id="modal-case-desc" class="text-xs text-slate-300 leading-relaxed mb-4">Descripción...</p>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-white/5 font-mono text-xs text-slate-300 space-y-1.5 mb-6">
+                <div class="text-orange-400 font-semibold">// Garantía de Ingeniería:</div>
+                <div class="text-slate-400">✓ Ambientes probados en Linux OS local y servidores remote</div>
+                <div class="text-slate-400">✓ Automatización mediante scripts Bash y Docker</div>
+                <div class="text-slate-400">✓ Persistencia de datos limpia en PostgreSQL / SQLite</div>
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <button onclick="closeCaseModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-700">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* 1. SVG Morphing Background Animation */
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof anime !== 'undefined') {
+                anime({
+                    targets: '#morph-path',
+                    d: [
+                        { value: 'M784,611Q704,722,579,788Q454,854,321,799Q188,744,118,622Q48,500,123,382Q198,264,329,195Q460,126,593,184Q726,242,795,371Q864,500,784,611Z' },
+                        { value: 'M738,629Q681,758,547,798Q413,838,284,781Q155,724,108,594Q61,464,129,353Q197,242,326,183Q455,124,586,177Q717,230,756,365Q795,500,738,629Z' },
+                        { value: 'M752,608Q663,716,536,786Q409,856,290,786Q171,716,116,591Q61,466,134,357Q207,248,333,186Q459,124,585,183Q711,242,776,371Q841,500,752,608Z' }
+                    ],
+                    easing: 'easeInOutSine',
+                    duration: 10000,
+                    direction: 'alternate',
+                    loop: true
+                });
+            }
+        });
+
+        /* 4. Copy Email Action */
+        function copyContactEmail() {
+            const email = "pyrex64.dev@gmail.com";
+            const temp = document.createElement("input");
+            temp.value = email;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+
+            const copyText = document.getElementById("copy-email-text");
+            const original = copyText.innerText;
+            copyText.innerText = "¡Correo Copiado!";
+
+            setTimeout(() => {
+                copyText.innerText = original;
+            }, 2500);
+        }
+
+        /* 5. CLI Shell Commands tuned for Pyrex64 */
+        const cliInput = document.getElementById('cli-input');
+        const cliOutput = document.getElementById('cli-output');
+
+        if (cliInput) {
+            cliInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const cmd = cliInput.value.trim().toLowerCase();
+                    cliInput.value = '';
+
+                    appendCliLine(`pyrex64@linux:~$ ${cmd}`, 'text-emerald-400 font-bold');
+
+                    switch (cmd) {
+                        case 'help':
+                            appendCliLine('Comandos disponibles: github, repos, projects, skills, ai, workflows, linux, rust, stack, deploy, contact, hire, clear');
+                            break;
+                        case 'github':
+                        case 'repos':
+                            appendCliLine('📦 Repositorios en GitHub (@ErPyrex):');
+                            appendCliLine('  1. rust-ffmpeg-cli -> https://github.com/ErPyrex/rust-ffmpeg-cli');
+                            appendCliLine('  2. script-dev-setup-installer -> https://github.com/ErPyrex/script-dev-setup-installer');
+                            appendCliLine('  3. mc-server-creator -> https://github.com/ErPyrex/mc-server-creator');
+                            appendCliLine('  4. mcp-packet-tracer-bundle -> https://github.com/ErPyrex/mcp-packet-tracer-bundle');
+                            appendCliLine('  5. mlbb-video-resources -> https://github.com/ErPyrex/mlbb-video-resources');
+                            break;
+                        case 'ai':
+                            appendCliLine('🤖 Herramientas de IA utilizadas: Antigravity, AntigravityCLI, OpenCode y Google Stitch para aceleración de flujos de desarrollo y prototipado.');
+                            break;
+                        case 'workflows':
+                        case 'cicd':
+                            appendCliLine('⚡ GitHub Workflows: Automatización CI/CD para tests, builds y despliegue continuo en Vercel y Render.');
+                            break;
+                        case 'projects':
+                            appendCliLine('✦ Web Apps en Producción:');
+                            appendCliLine('   • NutriCalculadora -> https://nutricalculadora.vercel.app/');
+                            appendCliLine('   • Dorologi Store -> https://www.dorologistore.com/');
+                            appendCliLine('✦ Proyectos GitHub (@ErPyrex): rust-ffmpeg-cli, script-dev-setup-installer, mc-server-creator...');
+                            break;
+                        case 'rust':
+                            appendCliLine('✦ rust-ffmpeg-cli: CLI desarrollada en Rust para manipulación de media con FFmpeg. Ver en github.com/ErPyrex/rust-ffmpeg-cli');
+                            break;
+                        case 'skills':
+                            appendCliLine('✦ Linux (Native), Docker, Bash, GitHub Workflows, AI Tools (Antigravity, AntigravityCLI, OpenCode, Google Stitch), Next.js, React, Expo, PostgreSQL, SQLite, Supabase, Render, Vercel.');
+                            break;
+                        case 'linux':
+                            appendCliLine('✦ Linux como sistema operativo principal diario. Cómodo con CLI, bash scripts y administración de servidores.');
+                            break;
+                        case 'stack':
+                            appendCliLine('✦ Web: Next.js + Tailwind | Móvil: Expo | Systems/DevOps: Linux, Docker, GitHub Workflows | IA: Antigravity, OpenCode | Cloud: Render, Vercel.');
+                            break;
+                        case 'deploy':
+                            appendCliLine('✦ Despliegues continuos mediante Git, GitHub Workflows, Vercel, Render y Docker Compose.');
+                            break;
+                        case 'contact':
+                            appendCliLine('✦ Email Directo: pyrex64.dev@gmail.com | GitHub: https://github.com/ErPyrex');
+                            break;
+                        case 'hire':
+                            appendCliLine('🚀 Pyrex64 está disponible para contratación inmediata o proyectos.');
+                            break;
+                        case 'clear':
+                            cliOutput.innerHTML = '';
+                            break;
+                        default:
+                            appendCliLine(`Comando no reconocido: '${cmd}'. Escribe 'help' o 'skills'.`, 'text-red-400');
+                    }
+                }
+            });
+        }
+
+        function appendCliLine(text, customClass = 'text-slate-300') {
+            const p = document.createElement('p');
+            p.className = customClass;
+            p.innerText = text;
+            cliOutput.appendChild(p);
+            cliOutput.scrollTop = cliOutput.scrollHeight;
+        }
+
+        /* 6. Modals & Forms */
+        function openBookingModal() {
+            document.getElementById('modal-booking').classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('modal-booking').classList.add('hidden');
+        }
+
+        function openCaseModal(title, link, desc) {
+            document.getElementById('modal-case-title').innerText = title;
+            document.getElementById('modal-case-desc').innerText = desc;
+            document.getElementById('modal-case').classList.remove('hidden');
+        }
+
+        function closeCaseModal() {
+            document.getElementById('modal-case').classList.add('hidden');
+        }
+
+        function submitForm(e) {
+            e.preventDefault();
+            const toast = document.getElementById('form-toast');
+            toast.classList.remove('hidden');
+            e.target.reset();
+            setTimeout(() => toast.classList.add('hidden'), 5000);
+        }
+    </script>
+</body>
+</html>
