@@ -22,15 +22,31 @@ export default function Contact({ t, lang }: ContactProps) {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate direct form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setFormState({ name: "", email: "", message: "" });
+      if (!response.ok) {
+        throw new Error(lang === "es" ? "Error al enviar el mensaje." : "Failed to send the message.");
+      }
 
-    // Hide success alert after 5 seconds
-    setTimeout(() => setIsSuccess(false), 5000);
+      setIsSuccess(true);
+      setFormState({ name: "", email: "", message: "" });
+
+      // Hide success alert after 5 seconds
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (err: unknown) {
+      const error = err as Error;
+      console.error(error);
+      alert(error.message || (lang === "es" ? "Ocurrió un error. Intenta de nuevo." : "An error occurred. Please try again."));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const copyEmail = () => {
