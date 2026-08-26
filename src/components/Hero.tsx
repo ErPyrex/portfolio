@@ -37,29 +37,7 @@ export default function Hero({ t, lang, openBooking, terminalState, setTerminalS
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center mb-10">
         {/* Left Column: Biography */}
         <div className={`${terminalState === "docked" ? "md:col-span-7" : "md:col-span-12"} flex flex-col items-start text-left transition-all duration-300`}>
-          {/* Intro Badges */}
-          <div className="flex flex-wrap items-center gap-2 mb-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span>{t.hero_tag_hiring}</span>
-            </div>
-            <a
-              href="https://github.com/ErPyrex"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={lang === "es" ? "Ver perfil de GitHub de ErPyrex" : "View ErPyrex GitHub profile"}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-xs font-mono text-purple-300 hover:bg-purple-500/20 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-purple-500/50"
-            >
-              <svg className="h-3 w-3 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
-              </svg>
-              <span>{t.hero_tag_github}</span>
-            </a>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-xs font-mono text-orange-400">
-              <Server className="h-3 w-3" />
-              <span>{t.hero_tag_linux}</span>
-            </div>
-          </div>
+
 
           {/* Main Heading */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-[1.15] max-w-4xl">
@@ -78,14 +56,10 @@ export default function Hero({ t, lang, openBooking, terminalState, setTerminalS
             {t.hero_paragraph}
           </p>
 
-          {/* English disclaimer message */}
-          <div className="mb-6 text-[11px] font-mono text-zinc-400/90 bg-zinc-900/30 border border-zinc-800/40 rounded-xl px-4 py-2 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
-            <span>{t.lang_disclaimer}</span>
-          </div>
+
 
           {/* Engineering Profile Accent Banner */}
-          <div className="w-full p-4 rounded-xl border border-zinc-800/80 bg-zinc-900/20 mb-6 flex items-start sm:items-center justify-between gap-4">
+          <div className="w-full p-4 rounded-xl border border-zinc-900 bg-zinc-950/40 mb-6 flex items-start sm:items-center justify-between gap-4 transition-colors hover:border-indigo-500/30">
             <div className="flex items-start sm:items-center gap-3">
               <div className="w-9 h-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 shrink-0 mt-0.5 sm:mt-0">
                 <TerminalIcon className="h-5 w-5" />
@@ -179,7 +153,7 @@ export default function Hero({ t, lang, openBooking, terminalState, setTerminalS
       {/* Stats Cards Section */}
       <div className="w-full mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         {statItems.map((item, idx) => (
-          <div key={idx} className="rounded-2xl border border-zinc-900 bg-zinc-900/20 p-5 shadow-sm hover:border-zinc-800 transition-colors">
+          <div key={idx} className="rounded-2xl border border-zinc-900 bg-zinc-950/40 p-5 shadow-sm transition-colors hover:border-indigo-500/30">
             <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono mb-1">
               {item.title}
             </div>

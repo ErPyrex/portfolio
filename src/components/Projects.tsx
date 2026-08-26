@@ -90,8 +90,8 @@ export default function Projects({ t, lang, openCaseStudy }: ProjectsProps) {
       </div>
 
       {/* Project 1: NutriCalculadora */}
-      <div className="rounded-2xl border border-zinc-900 bg-zinc-900/20 p-6 sm:p-8 mb-8 hover:border-zinc-800 transition-colors duration-200">
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-zinc-900">
+      <div className="rounded-2xl border border-zinc-900 bg-zinc-950/40 p-6 sm:p-8 mb-8 hover:border-emerald-500/50 transition-colors duration-200">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-zinc-900/60">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 border border-emerald-500/20 font-bold font-mono">
               01
@@ -125,12 +125,15 @@ export default function Projects({ t, lang, openCaseStudy }: ProjectsProps) {
             <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
               {t.projects_nutri_focus_desc}
             </p>
-            <div className="p-3.5 rounded-xl bg-zinc-950/60 border border-zinc-900 text-xs text-zinc-300 space-y-1">
-              <div className="text-emerald-400 font-semibold flex items-center gap-1.5">
-                <Cpu className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>{t.projects_nutri_perf_title}</span>
+            <div className="font-mono text-xs text-zinc-400 space-y-1 mt-3">
+              <div className="text-emerald-400 font-bold flex items-center gap-1.5">
+                <Cpu className="h-3.5 w-3.5 animate-pulse" aria-hidden="true" />
+                <span>{t.projects_nutri_perf_title}() {"{"}</span>
               </div>
-              <p>{t.projects_nutri_perf_desc}</p>
+              <p className="pl-4 border-l border-zinc-900 text-zinc-300 py-1 leading-relaxed">
+                {t.projects_nutri_perf_desc}
+              </p>
+              <div className="text-emerald-500/60 font-bold">{"}"}</div>
             </div>
           </div>
 
@@ -205,8 +208,8 @@ export default function Projects({ t, lang, openCaseStudy }: ProjectsProps) {
       </div>
 
       {/* Project 2: Dorologi Store */}
-      <div className="rounded-2xl border border-zinc-900 bg-zinc-900/20 p-6 sm:p-8 hover:border-zinc-800 transition-colors duration-200">
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-zinc-900">
+      <div className="rounded-2xl border border-zinc-900 bg-zinc-950/40 p-6 sm:p-8 mb-8 hover:border-orange-500/50 transition-colors duration-200">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-zinc-900/60">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 border border-orange-500/20 font-bold font-mono">
               02
@@ -240,12 +243,15 @@ export default function Projects({ t, lang, openCaseStudy }: ProjectsProps) {
             <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
               {t.projects_dorologi_focus_desc}
             </p>
-            <div className="p-3.5 rounded-xl bg-zinc-950/60 border border-zinc-900 text-xs text-zinc-300 space-y-1">
-              <div className="text-orange-400 font-semibold flex items-center gap-1.5">
-                <Cpu className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>{t.projects_dorologi_perf_title}</span>
+            <div className="font-mono text-xs text-zinc-400 space-y-1 mt-3">
+              <div className="text-orange-400 font-bold flex items-center gap-1.5">
+                <Cpu className="h-3.5 w-3.5 animate-pulse" aria-hidden="true" />
+                <span>{t.projects_dorologi_perf_title}() {"{"}</span>
               </div>
-              <p>{t.projects_dorologi_perf_desc}</p>
+              <p className="pl-4 border-l border-zinc-900 text-zinc-300 py-1 leading-relaxed">
+                {t.projects_dorologi_perf_desc}
+              </p>
+              <div className="text-orange-500/60 font-bold">{"}"}</div>
             </div>
           </div>
 
@@ -356,11 +362,11 @@ export default function Projects({ t, lang, openCaseStudy }: ProjectsProps) {
               href={repo.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`rounded-2xl border border-zinc-900 bg-zinc-950/40 p-5 flex flex-col justify-between group transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/40 focus-visible:border-purple-500 ${repo.borderHover}`}
+              className="p-5 flex flex-col justify-between group border-l border-zinc-900 hover:border-indigo-500/30 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/40"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className={`px-2.5 py-0.5 rounded-lg border text-[10px] font-mono font-bold ${repo.tagColor}`}>
+                  <span className={`px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-bold bg-zinc-900/40 ${repo.tagColor}`}>
                     {repo.tag}
                   </span>
                   <Code className="h-4 w-4 text-zinc-500 group-hover:text-white transition-colors" aria-hidden="true" />
@@ -389,7 +395,7 @@ export default function Projects({ t, lang, openCaseStudy }: ProjectsProps) {
             href="https://github.com/ErPyrex"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-2xl border border-dashed border-purple-500/20 bg-zinc-950/40 p-5 flex flex-col justify-center items-center text-center group hover:border-purple-500 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/40 focus-visible:border-purple-500"
+            className="p-5 flex flex-col justify-center items-center text-center group border-l border-dashed border-indigo-500/20 hover:border-indigo-500/40 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/40"
           >
             <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 mb-3 group-hover:scale-110 transition-transform">
               <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">

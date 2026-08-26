@@ -59,7 +59,7 @@ export default function Contact({ t, lang }: ContactProps) {
             type="button"
             onClick={copyEmail}
             aria-label={lang === "es" ? "Copiar dirección de correo electrónico" : "Copy email address"}
-            className="w-full text-left rounded-xl border border-zinc-900 bg-zinc-900/40 p-4 hover:bg-zinc-900/70 transition-colors flex items-center gap-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 min-w-0"
+            className="w-full text-left rounded-xl border border-zinc-900 bg-zinc-950/40 p-4 hover:border-indigo-500/40 hover:bg-zinc-900/10 transition-colors flex items-center gap-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 min-w-0"
           >
             <div className="w-9 h-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 shrink-0">
               <Mail className="h-4.5 w-4.5" aria-hidden="true" />
@@ -74,7 +74,7 @@ export default function Contact({ t, lang }: ContactProps) {
             </div>
           </button>
 
-          <div className="rounded-xl border border-zinc-900 bg-zinc-900/40 p-4 flex items-center gap-3.5 min-w-0">
+          <div className="rounded-xl border border-zinc-900 bg-zinc-950/40 p-4 flex items-center gap-3.5 min-w-0 transition-colors hover:border-indigo-500/40">
             <div className="w-9 h-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 shrink-0">
               <MapPin className="h-4.5 w-4.5" aria-hidden="true" />
             </div>
@@ -113,7 +113,7 @@ export default function Contact({ t, lang }: ContactProps) {
                   onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                   placeholder={t.contact_label_name}
                   aria-label={t.contact_label_name}
-                  className="w-full bg-zinc-950/80 border border-zinc-900 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:border-indigo-500 transition-colors"
+                  className="w-full bg-zinc-950/60 border border-zinc-900 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:border-indigo-500 transition-colors"
                 />
               </div>
               <div>
@@ -127,7 +127,7 @@ export default function Contact({ t, lang }: ContactProps) {
                   onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                   placeholder={t.contact_label_email}
                   aria-label={t.contact_label_email}
-                  className="w-full bg-zinc-950/80 border border-zinc-900 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:border-indigo-500 transition-colors"
+                  className="w-full bg-zinc-950/60 border border-zinc-900 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:border-indigo-500 transition-colors"
                 />
               </div>
               <div>
@@ -140,7 +140,7 @@ export default function Contact({ t, lang }: ContactProps) {
                   onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                   placeholder={t.contact_label_msg}
                   aria-label={t.contact_label_msg}
-                  className="w-full bg-zinc-950/80 border border-zinc-900 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:border-indigo-500 transition-colors"
+                  className="w-full bg-zinc-950/60 border border-zinc-900 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:border-indigo-500 transition-colors"
                 />
               </div>
               <button

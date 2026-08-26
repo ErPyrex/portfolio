@@ -21,7 +21,7 @@ export default function Navbar({ t, lang, setLang, openBooking }: NavbarProps) {
   ];
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[94%] max-w-5xl border border-white/10 bg-zinc-950/75 backdrop-blur-xl rounded-2xl shadow-2xl">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[94%] max-w-5xl border border-zinc-900 bg-zinc-950/80 backdrop-blur-xl rounded-2xl shadow-2xl transition-colors hover:border-zinc-800">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
