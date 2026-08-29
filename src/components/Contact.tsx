@@ -32,7 +32,11 @@ export default function Contact({ t, lang }: ContactProps) {
       });
 
       if (!response.ok) {
-        throw new Error(lang === "es" ? "Error al enviar el mensaje." : "Failed to send the message.");
+        throw new Error(
+          lang === "es"
+            ? "Error al enviar el mensaje."
+            : "Failed to send the message.",
+        );
       }
 
       setIsSuccess(true);
@@ -43,7 +47,12 @@ export default function Contact({ t, lang }: ContactProps) {
     } catch (err: unknown) {
       const error = err as Error;
       console.error(error);
-      alert(error.message || (lang === "es" ? "Ocurrió un error. Intenta de nuevo." : "An error occurred. Please try again."));
+      alert(
+        error.message ||
+          (lang === "es"
+            ? "Ocurrió un error. Intenta de nuevo."
+            : "An error occurred. Please try again."),
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -51,11 +60,16 @@ export default function Contact({ t, lang }: ContactProps) {
 
   const copyEmail = () => {
     navigator.clipboard.writeText("sergioalarcon22986@gmail.com");
-    alert(lang === "es" ? "¡Correo electrónico copiado!" : "Email address copied!");
+    alert(
+      lang === "es" ? "¡Correo electrónico copiado!" : "Email address copied!",
+    );
   };
 
   return (
-    <section id="contact" className="relative z-10 py-20 px-4 max-w-4xl mx-auto">
+    <section
+      id="contact"
+      className="relative z-10 py-20 px-4 max-w-4xl mx-auto"
+    >
       <div className="rounded-3xl p-8 sm:p-12 border border-indigo-500/20 bg-zinc-950/40 backdrop-blur-xl text-center relative overflow-hidden">
         <span className="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-mono uppercase tracking-wider border border-indigo-500/20">
           {t.contact_tag}
@@ -74,7 +88,11 @@ export default function Contact({ t, lang }: ContactProps) {
           <button
             type="button"
             onClick={copyEmail}
-            aria-label={lang === "es" ? "Copiar dirección de correo electrónico" : "Copy email address"}
+            aria-label={
+              lang === "es"
+                ? "Copiar dirección de correo electrónico"
+                : "Copy email address"
+            }
             className="w-full text-left rounded-xl border border-zinc-900 bg-zinc-950/40 p-4 hover:border-indigo-500/40 hover:bg-zinc-900/10 transition-colors flex items-center gap-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 min-w-0"
           >
             <div className="w-9 h-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 shrink-0">
@@ -84,7 +102,10 @@ export default function Contact({ t, lang }: ContactProps) {
               <span className="text-[10px] text-zinc-500 block uppercase font-mono tracking-wider">
                 Email
               </span>
-              <span className="text-xs sm:text-sm font-semibold text-zinc-200 block truncate" title="sergioalarcon22986@gmail.com">
+              <span
+                className="text-xs sm:text-sm font-semibold text-zinc-200 block truncate"
+                title="sergioalarcon22986@gmail.com"
+              >
                 sergioalarcon22986@gmail.com
               </span>
             </div>
@@ -98,7 +119,10 @@ export default function Contact({ t, lang }: ContactProps) {
               <span className="text-[10px] text-zinc-500 block uppercase font-mono tracking-wider">
                 {t.contact_location_label}
               </span>
-              <span className="text-xs sm:text-sm font-semibold text-zinc-200 block truncate" title={t.contact_location}>
+              <span
+                className="text-xs sm:text-sm font-semibold text-zinc-200 block truncate"
+                title={t.contact_location}
+              >
                 {t.contact_location}
               </span>
             </div>
@@ -126,7 +150,9 @@ export default function Contact({ t, lang }: ContactProps) {
                   name="name"
                   autoComplete="name"
                   value={formState.name}
-                  onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormState({ ...formState, name: e.target.value })
+                  }
                   placeholder={t.contact_label_name}
                   aria-label={t.contact_label_name}
                   className="w-full bg-zinc-950/60 border border-zinc-900 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:border-indigo-500 transition-colors"
@@ -140,7 +166,9 @@ export default function Contact({ t, lang }: ContactProps) {
                   autoComplete="email"
                   spellCheck={false}
                   value={formState.email}
-                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormState({ ...formState, email: e.target.value })
+                  }
                   placeholder={t.contact_label_email}
                   aria-label={t.contact_label_email}
                   className="w-full bg-zinc-950/60 border border-zinc-900 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:border-indigo-500 transition-colors"
@@ -153,7 +181,9 @@ export default function Contact({ t, lang }: ContactProps) {
                   name="message"
                   autoComplete="off"
                   value={formState.message}
-                  onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                  onChange={(e) =>
+                    setFormState({ ...formState, message: e.target.value })
+                  }
                   placeholder={t.contact_label_msg}
                   aria-label={t.contact_label_msg}
                   className="w-full bg-zinc-950/60 border border-zinc-900 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/20 focus-visible:border-indigo-500 transition-colors"
@@ -164,7 +194,9 @@ export default function Contact({ t, lang }: ContactProps) {
                 disabled={isSubmitting}
                 className="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/30"
               >
-                <span>{isSubmitting ? t.contact_btn_sending : t.contact_btn_send}</span>
+                <span>
+                  {isSubmitting ? t.contact_btn_sending : t.contact_btn_send}
+                </span>
                 <Send className="h-3.5 w-3.5" aria-hidden="true" />
               </button>
             </form>

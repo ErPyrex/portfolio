@@ -37,7 +37,9 @@ export default function Navbar({ t, lang, setLang, openBooking }: NavbarProps) {
                 Sergio Rodriguez (Pyrex64)
               </span>
               <span className="text-[9px] sm:text-[10px] text-zinc-400 font-mono leading-none mt-0.5">
-                {lang === "es" ? "Ingeniero en Informática" : "Computer Engineer"}
+                {lang === "es"
+                  ? "Ingeniero en Informática"
+                  : "Computer Engineer"}
               </span>
             </div>
           </a>
@@ -59,7 +61,11 @@ export default function Navbar({ t, lang, setLang, openBooking }: NavbarProps) {
             {/* Language Switcher */}
             <button
               onClick={() => setLang(lang === "es" ? "en" : "es")}
-              aria-label={lang === "es" ? "Cambiar idioma a Inglés" : "Switch language to Spanish"}
+              aria-label={
+                lang === "es"
+                  ? "Cambiar idioma a Inglés"
+                  : "Switch language to Spanish"
+              }
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 text-[10px] font-mono font-medium text-zinc-200 border border-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50"
             >
               <Globe className="h-3 w-3 text-zinc-400" aria-hidden="true" />
@@ -92,10 +98,22 @@ export default function Navbar({ t, lang, setLang, openBooking }: NavbarProps) {
               type="button"
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
-              aria-label={isOpen ? (lang === "es" ? "Cerrar menú" : "Close menu") : (lang === "es" ? "Abrir menú" : "Open menu")}
+              aria-label={
+                isOpen
+                  ? lang === "es"
+                    ? "Cerrar menú"
+                    : "Close menu"
+                  : lang === "es"
+                    ? "Abrir menú"
+                    : "Open menu"
+              }
               className="inline-flex items-center justify-center rounded-md p-1.5 text-zinc-400 hover:bg-zinc-900 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
             >
-              {isOpen ? <X className="block h-5 w-5" aria-hidden="true" /> : <Menu className="block h-5 w-5" aria-hidden="true" />}
+              {isOpen ? (
+                <X className="block h-5 w-5" aria-hidden="true" />
+              ) : (
+                <Menu className="block h-5 w-5" aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>
@@ -103,7 +121,10 @@ export default function Navbar({ t, lang, setLang, openBooking }: NavbarProps) {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div id="mobile-menu" className="md:hidden bg-zinc-950 border-t border-zinc-900/50 rounded-b-2xl">
+        <div
+          id="mobile-menu"
+          className="md:hidden bg-zinc-950 border-t border-zinc-900/50 rounded-b-2xl"
+        >
           <div className="space-y-1 px-3 pb-4 pt-2 font-mono text-xs text-zinc-400">
             {navLinks.map((link) => (
               <a

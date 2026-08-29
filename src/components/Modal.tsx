@@ -9,7 +9,12 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
+export default function Modal({
+  isOpen,
+  onClose,
+  title,
+  children,
+}: ModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -25,9 +30,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
         </button>
 
         {/* Modal Title */}
-        <h3 className="text-xl font-bold text-zinc-100 mb-4 pr-6">
-          {title}
-        </h3>
+        <h3 className="text-xl font-bold text-zinc-100 mb-4 pr-6">{title}</h3>
 
         {/* Modal Content */}
         <div>{children}</div>

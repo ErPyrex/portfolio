@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Pyrex64 | Creative Developer & Software Engineer",
-  description: "Showcase of my projects, technical skills, and professional experience.",
+  description:
+    "Showcase of my projects, technical skills, and professional experience.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

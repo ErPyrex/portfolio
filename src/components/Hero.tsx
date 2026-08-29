@@ -1,7 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Terminal as TerminalIcon, GraduationCap, Server, Settings, Cpu, Bot, ChevronDown, Check, Copy } from "lucide-react";
+import {
+  ArrowRight,
+  Terminal as TerminalIcon,
+  GraduationCap,
+  Server,
+  Settings,
+  Cpu,
+  Bot,
+  ChevronDown,
+  Check,
+  Copy,
+} from "lucide-react";
 import { TranslationSchema } from "@/lib/translations";
 import Terminal from "./Terminal";
 
@@ -10,10 +21,18 @@ interface HeroProps {
   lang: "es" | "en";
   openBooking: () => void;
   terminalState: "docked" | "floating" | "maximized" | "minimized" | "closed";
-  setTerminalState: (state: "docked" | "floating" | "maximized" | "minimized" | "closed") => void;
+  setTerminalState: (
+    state: "docked" | "floating" | "maximized" | "minimized" | "closed",
+  ) => void;
 }
 
-export default function Hero({ t, lang, openBooking, terminalState, setTerminalState }: HeroProps) {
+export default function Hero({
+  t,
+  lang,
+  openBooking,
+  terminalState,
+  setTerminalState,
+}: HeroProps) {
   const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
@@ -23,10 +42,22 @@ export default function Hero({ t, lang, openBooking, terminalState, setTerminalS
   };
 
   const statItems = [
-    { title: t.stat_docker_title, label: t.stat_docker_label, desc: t.stat_docker_desc },
-    { title: t.stat_multi_title, label: t.stat_multi_label, desc: t.stat_multi_desc },
+    {
+      title: t.stat_docker_title,
+      label: t.stat_docker_label,
+      desc: t.stat_docker_desc,
+    },
+    {
+      title: t.stat_multi_title,
+      label: t.stat_multi_label,
+      desc: t.stat_multi_desc,
+    },
     { title: t.stat_sql_title, label: t.stat_sql_label, desc: t.stat_sql_desc },
-    { title: t.stat_cicd_title, label: t.stat_cicd_label, desc: t.stat_cicd_desc },
+    {
+      title: t.stat_cicd_title,
+      label: t.stat_cicd_label,
+      desc: t.stat_cicd_desc,
+    },
   ];
 
   return (
@@ -36,9 +67,9 @@ export default function Hero({ t, lang, openBooking, terminalState, setTerminalS
     >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center mb-10">
         {/* Left Column: Biography */}
-        <div className={`${terminalState === "docked" ? "md:col-span-7" : "md:col-span-12"} flex flex-col items-start text-left transition-all duration-300`}>
-
-
+        <div
+          className={`${terminalState === "docked" ? "md:col-span-7" : "md:col-span-12"} flex flex-col items-start text-left transition-all duration-300`}
+        >
           {/* Main Heading */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-[1.15] max-w-4xl">
             {t.hero_heading_white1}
@@ -48,15 +79,14 @@ export default function Hero({ t, lang, openBooking, terminalState, setTerminalS
             {t.hero_heading_white2}
             <span className="bg-gradient-to-r from-orange-500 via-orange-400 to-yellow-400 bg-clip-text text-transparent font-mono">
               {t.hero_heading_gradient_orange}
-            </span>.
+            </span>
+            .
           </h1>
 
           {/* Intro Description */}
           <p className="text-sm sm:text-base text-zinc-300 max-w-3xl mb-4 leading-relaxed">
             {t.hero_paragraph}
           </p>
-
-
 
           {/* Engineering Profile Accent Banner */}
           <div className="w-full p-4 rounded-xl border border-zinc-900 bg-zinc-950/40 mb-6 flex items-start sm:items-center justify-between gap-4 transition-colors hover:border-indigo-500/30">
@@ -92,12 +122,18 @@ export default function Hero({ t, lang, openBooking, terminalState, setTerminalS
             >
               {copied ? (
                 <>
-                  <Check className="h-3.5 w-3.5 text-emerald-400 animate-pulse" aria-hidden="true" />
+                  <Check
+                    className="h-3.5 w-3.5 text-emerald-400 animate-pulse"
+                    aria-hidden="true"
+                  />
                   <span className="text-emerald-400">{t.hero_cta_copied}</span>
                 </>
               ) : (
                 <>
-                  <Copy className="h-3.5 w-3.5 text-indigo-400" aria-hidden="true" />
+                  <Copy
+                    className="h-3.5 w-3.5 text-indigo-400"
+                    aria-hidden="true"
+                  />
                   <span>{t.hero_cta_copy}</span>
                 </>
               )}
@@ -115,7 +151,10 @@ export default function Hero({ t, lang, openBooking, terminalState, setTerminalS
           {/* Quick proof badges */}
           <div className="w-full pt-6 border-t border-zinc-900/80 flex flex-wrap items-center gap-x-6 gap-y-3 text-[11px] font-mono text-zinc-400/90">
             <div className="flex items-center gap-2">
-              <GraduationCap className="h-4 w-4 text-indigo-400" aria-hidden="true" />
+              <GraduationCap
+                className="h-4 w-4 text-indigo-400"
+                aria-hidden="true"
+              />
               <span>{t.hero_proof_eng}</span>
             </div>
             <div className="flex items-center gap-2">
@@ -153,7 +192,10 @@ export default function Hero({ t, lang, openBooking, terminalState, setTerminalS
       {/* Stats Cards Section */}
       <div className="w-full mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         {statItems.map((item, idx) => (
-          <div key={idx} className="rounded-2xl border border-zinc-900 bg-zinc-950/40 p-5 shadow-sm transition-colors hover:border-indigo-500/30">
+          <div
+            key={idx}
+            className="rounded-2xl border border-zinc-900 bg-zinc-950/40 p-5 shadow-sm transition-colors hover:border-indigo-500/30"
+          >
             <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono mb-1">
               {item.title}
             </div>

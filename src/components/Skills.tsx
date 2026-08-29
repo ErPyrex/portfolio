@@ -36,7 +36,9 @@ export default function Skills({ t }: SkillsProps) {
     {
       title: t.stack_mobile_title,
       subtitle: t.stack_mobile_subtitle,
-      icon: <Database className="h-6 w-6 text-emerald-400" aria-hidden="true" />,
+      icon: (
+        <Database className="h-6 w-6 text-emerald-400" aria-hidden="true" />
+      ),
       items: [
         t.stack_mobile_item1,
         t.stack_mobile_item2,
@@ -94,7 +96,10 @@ export default function Skills({ t }: SkillsProps) {
               {category.items.map((item, itemIdx) => {
                 const parts = item.split(" • ");
                 return (
-                  <li key={itemIdx} className="flex items-center justify-between font-mono py-0.5">
+                  <li
+                    key={itemIdx}
+                    className="flex items-center justify-between font-mono py-0.5"
+                  >
                     <span className="text-zinc-400">{parts[0]}</span>
                     {parts[1] && (
                       <span className="text-zinc-200 font-semibold text-right pl-2">

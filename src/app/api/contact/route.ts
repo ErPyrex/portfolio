@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: "Todos los campos son obligatorios." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -148,7 +148,7 @@ export async function POST(request: Request) {
     console.error("Resend API Error:", err);
     return NextResponse.json(
       { error: err.message || "Error interno al enviar el correo." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
