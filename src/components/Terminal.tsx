@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import {
   TranslationSchema,
   esTranslations,
@@ -1039,37 +1040,14 @@ const TerminalContactForm = ({
   lang,
   onSubmitSuccess,
 }: ContactFormProps) => {
+  const [state, handleSubmit] = useForm("xeaqovqr");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.name || !form.email || !form.message) return;
-    setLoading(true);
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      if (!response.ok) throw new Error();
-
-      setSuccess(true);
-      setForm({ name: "", email: "", message: "" });
+  useEffect(() => {
+    if (state.succeeded) {
       onSubmitSuccess();
-    } catch (err) {
-      alert(
-        lang === "es"
-          ? "Error al enviar el mensaje."
-          : "Failed to send the message.",
-      );
-    } finally {
-      setLoading(false);
     }
-  };
+  }, [state.succeeded, onSubmitSuccess]);
 
   return (
     <div className="border border-[#33ff66]/30 bg-[#051105]/40 rounded-xl p-5 max-w-xl mx-auto my-6 font-mono text-[#33ff66]">
@@ -1080,7 +1058,7 @@ const TerminalContactForm = ({
           : "CONTACT APPLICATION (contact_manager.exe)"}
       </div>
 
-      {success ? (
+      {state.succeeded ? (
         <div className="text-emerald-400 text-xs font-bold py-2 animate-pulse">
           {lang === "es"
             ? "✔ [ÉXITO] Tu transmisión fue enviada con éxito."
@@ -1097,12 +1075,19 @@ const TerminalContactForm = ({
             </label>
             <input
               id="contact-name"
+              name="name"
               type="text"
               required
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               className="w-full bg-transparent border border-[#33ff66]/30 focus:border-[#33ff66] rounded-md px-3 py-1.5 text-xs text-[#33ff66] placeholder-[#33ff66]/30 outline-none transition-colors font-mono"
               placeholder="e.g. Vault Tec Corp"
+            />
+            <ValidationError
+              prefix="Name"
+              field="name"
+              errors={state.errors}
+              className="text-red-400 text-[10px] mt-1 block"
             />
           </div>
 
@@ -1115,12 +1100,19 @@ const TerminalContactForm = ({
             </label>
             <input
               id="contact-email"
+              name="email"
               type="email"
               required
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               className="w-full bg-transparent border border-[#33ff66]/30 focus:border-[#33ff66] rounded-md px-3 py-1.5 text-xs text-[#33ff66] placeholder-[#33ff66]/30 outline-none transition-colors font-mono"
               placeholder="e.g. wanderer@wasteland.org"
+            />
+            <ValidationError
+              prefix="Email"
+              field="email"
+              errors={state.errors}
+              className="text-red-400 text-[10px] mt-1 block"
             />
           </div>
 
@@ -1133,6 +1125,7 @@ const TerminalContactForm = ({
             </label>
             <textarea
               id="contact-message"
+              name="message"
               rows={3}
               required
               value={form.message}
@@ -1140,14 +1133,28 @@ const TerminalContactForm = ({
               className="w-full bg-transparent border border-[#33ff66]/30 focus:border-[#33ff66] rounded-md px-3 py-1.5 text-xs text-[#33ff66] placeholder-[#33ff66]/30 outline-none transition-colors resize-none font-mono"
               placeholder="..."
             />
+            <ValidationError
+              prefix="Message"
+              field="message"
+              errors={state.errors}
+              className="text-red-400 text-[10px] mt-1 block"
+            />
           </div>
+
+          {state.errors && (
+            <div className="text-red-400 text-[10px] border border-red-500/30 bg-red-950/20 p-2 rounded-md">
+              {lang === "es"
+                ? "Error al enviar la transmisión. Por favor verifica los campos."
+                : "Failed to send the transmission. Please check the fields."}
+            </div>
+          )}
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={state.submitting}
             className="w-full border border-[#33ff66] hover:bg-[#33ff66]/10 active:bg-[#33ff66]/20 text-[#33ff66] text-xs font-bold py-2 rounded-md transition-all cursor-pointer font-mono"
           >
-            {loading
+            {state.submitting
               ? lang === "es"
                 ? "ENVIANDO TRANSMISIÓN..."
                 : "SENDING TRANSMISSION..."
