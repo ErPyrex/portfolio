@@ -1811,7 +1811,19 @@ export default function Terminal({ t, lang, setLang }: TerminalProps) {
       {/* Terminal View Body */}
       <div
         ref={scrollContainerRef}
-        onClick={() => inputRef.current?.focus({ preventScroll: true })}
+        onClick={(e) => {
+          const target = e.target as HTMLElement;
+          if (
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "BUTTON" ||
+            target.closest("form") ||
+            target.closest("button")
+          ) {
+            return;
+          }
+          inputRef.current?.focus({ preventScroll: true });
+        }}
         className="flex-1 p-6 font-mono text-xs sm:text-sm overflow-y-auto text-[#33ff66] flex flex-col justify-between cursor-text relative z-10"
       >
         <div className="space-y-1.5 break-words w-full">
